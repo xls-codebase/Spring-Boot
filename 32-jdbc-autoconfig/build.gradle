@@ -1,5 +1,4 @@
-// TO-DO-01 : Add the Spring Boot Plugin
-
+apply plugin: 'org.springframework.boot'
 
 dependencies {
     implementation project(':00-rewards-common')
