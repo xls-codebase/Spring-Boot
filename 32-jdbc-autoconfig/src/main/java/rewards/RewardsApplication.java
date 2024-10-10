@@ -40,10 +40,6 @@ public class RewardsApplication {
         SpringApplication.run(RewardsApplication.class, args);
     }
 
-    // TODO-04 : Let Spring Boot execute database scripts
-    // - Move the SQL scripts (schema.sql and data.sql)
-    //   from `src/test/resources/rewards/testdb` directory
-    //   to `src/main/resources/` directory
 
     // TODO-05 : Implement a command line runner that will query count from
     //           T_ACCOUNT table and log the count to the console
