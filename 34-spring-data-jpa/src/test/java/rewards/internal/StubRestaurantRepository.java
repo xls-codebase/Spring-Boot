@@ -1,17 +1,15 @@
 package rewards.internal;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import common.money.Percentage;
 import org.springframework.orm.ObjectRetrievalFailureException;
-
 import rewards.Dining;
 import rewards.internal.account.Account;
 import rewards.internal.restaurant.BenefitAvailabilityPolicy;
 import rewards.internal.restaurant.Restaurant;
 import rewards.internal.restaurant.RestaurantRepository;
 
-import common.money.Percentage;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A dummy restaurant repository implementation. Has a single restaurant "Apple Bees" with a 8% benefit availability
@@ -32,7 +30,7 @@ public class StubRestaurantRepository implements RestaurantRepository {
 		restaurantsByMerchantNumber.put(restaurant.getNumber(), restaurant);
 	}
 
-	public Restaurant findByMerchantNumber(String merchantNumber) {
+	public Restaurant findByNumber(String merchantNumber) {
 		Restaurant restaurant = (Restaurant) restaurantsByMerchantNumber.get(merchantNumber);
 		if (restaurant == null) {
 			throw new ObjectRetrievalFailureException(Restaurant.class, merchantNumber);
