@@ -1,14 +1,12 @@
 package rewards.internal;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import common.money.Percentage;
 import org.springframework.orm.ObjectRetrievalFailureException;
-
 import rewards.internal.account.Account;
 import rewards.internal.account.AccountRepository;
 
-import common.money.Percentage;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A dummy account repository implementation. Has a single Account "Keith and Keri Donald" with two beneficiaries
@@ -29,7 +27,7 @@ public class StubAccountRepository implements AccountRepository {
 		accountsByCreditCard.put("1234123412341234", account);
 	}
 
-	public Account findByCreditCard(String creditCardNumber) {
+	public Account findByCreditCardNumber(String creditCardNumber) {
 		Account account = accountsByCreditCard.get(creditCardNumber);
 		if (account == null) {
 			throw new ObjectRetrievalFailureException(Account.class, creditCardNumber);
