@@ -47,7 +47,7 @@ public class AccountController {
 		// - From the home page, click the link - this should now work
 		// - If you prefer, access http://localhost:8080/accounts using curl or Postman
 
-		return null; // REPLACE THIS LINE to return a list accounts
+		return accountManager.getAllAccounts();
 		
 		// TODO-06: (If you are using STS) We are about to make lots of
 		//          changes, so stop the application otherwise Devtools
