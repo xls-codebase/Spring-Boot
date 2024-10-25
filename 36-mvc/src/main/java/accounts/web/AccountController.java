@@ -2,6 +2,7 @@ package accounts.web;
 
 import accounts.AccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rewards.internal.account.Account;
 
@@ -37,6 +38,7 @@ public class AccountController {
 	 */
 	// TODO-04: Add an appropriate annotation to make this method handle "/accounts"
 
+	@GetMapping("/accounts")
 	public List<Account> accountList() {
 
 		// TODO-05: Implement the logic to find and return all accounts
