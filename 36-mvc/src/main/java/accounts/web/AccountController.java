@@ -3,6 +3,7 @@ package accounts.web;
 import accounts.AccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import rewards.internal.account.Account;
 
@@ -62,6 +63,10 @@ public class AccountController {
 	//   needed to retrieve an account.
 	// - Use the accountManager to obtain an account. This is the value to return
 	// - Save all work.
+	@GetMapping("/accounts/{entityId}")
+	public Account accountDetails(@PathVariable Long entityId) {
+		return accountManager.getAccount(entityId);
+	}
 
 
 	// TODO-10b: If AccountControllerTests.testHandleDetailsRequest()
