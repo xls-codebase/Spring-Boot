@@ -2,7 +2,6 @@ package accounts.web;
 
 import accounts.internal.StubAccountManager;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import rewards.internal.account.Account;
 
@@ -43,7 +42,6 @@ public class AccountControllerTests {
 
 	// TODO-10a: Remove the @Disabled annotation, run the test, it should pass.
 	@Test
-	@Disabled
 	public void testHandleDetailsRequest() {
 		// TODO-09a: Implement test code which calls the accountDetails() method on the controller.
 		// - It will take one parameter - use "expectedAccountId" defined above
