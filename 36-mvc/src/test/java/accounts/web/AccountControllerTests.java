@@ -28,7 +28,6 @@ public class AccountControllerTests {
 
 	// TODO-07: Remove the @Disabled annotation, run the test, it should now pass.
 	@Test
-	@Disabled
 	public void testHandleListRequest() {
 		List<Account> accounts = controller.accountList();
 
