@@ -48,11 +48,16 @@ public class AccountControllerTests {
 		// TODO-09a: Implement test code which calls the accountDetails() method on the controller.
 		// - It will take one parameter - use "expectedAccountId" defined above
 		// - It will return an Account
-
+		Account account = controller.accountDetails(expectedAccountId);
 		// TODO-09b: Define the following assertions:
 		// - The account is not null
+		assertNotNull(account);
 		// - The account id matches "expectedAccountId" defined above
+		assertEquals(expectedAccountId, (long) account.getEntityId());
 		// - The account number matches "expectedAccountNumber" defined above
+		assertEquals(expectedAccountNumber, account.getNumber());
+
+
 	}
 
 }
