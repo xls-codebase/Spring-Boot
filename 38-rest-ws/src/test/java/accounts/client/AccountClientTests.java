@@ -99,7 +99,7 @@ public class AccountClientTests {
 		assertEquals("David", newBeneficiary.getName());
 		
 		// TODO-15: Delete the newly created Beneficiary
-
+		restTemplate.delete(location);
 
 		HttpClientErrorException httpClientErrorException = assertThrows(HttpClientErrorException.class, () -> {
 			System.out.println("You SHOULD get the exception \"No such beneficiary with name 'David'\" in the server.");
