@@ -93,7 +93,7 @@ public class AccountClientTests {
 		URI location = restTemplate.postForLocation(BASE_URL + "/accounts/{accountId}/beneficiaries", beneficiary, accountId);
 
 		// TODO-14: Retrieve the Beneficiary you just created from the location that was returned
-		Beneficiary newBeneficiary = null; // Modify this line to use the restTemplate
+		Beneficiary newBeneficiary = restTemplate.getForObject(location, Beneficiary.class);
 		
 		assertNotNull(newBeneficiary);
 		assertEquals("David", newBeneficiary.getName());
