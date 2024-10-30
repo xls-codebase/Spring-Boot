@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import rewards.internal.account.Account;
 import rewards.internal.account.Beneficiary;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 
@@ -91,8 +93,12 @@ public class AccountController {
 		// a. You will need to use 'ServletUriComponentsBuilder' and
 		//     'ResponseEntity' to implement this - Use ResponseEntity.created(..)
 		// b. Refer to the POST example in the slides for more information
-
-		return null; // Return something other than null
+		URI location = ServletUriComponentsBuilder
+				.fromCurrentRequestUri()
+				.path("/{resourceId}")
+				.buildAndExpand(resourceId)
+				.toUri();
+		return ResponseEntity.created(location).build();
 	}
 
 	/**
