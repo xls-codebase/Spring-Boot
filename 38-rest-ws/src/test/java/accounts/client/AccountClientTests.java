@@ -108,6 +108,7 @@ public class AccountClientTests {
 			// - Run this test, then. It should pass because we expect a 404 Not Found
 			//   If not, it is likely your delete in the previous step
 			//   was not successful.
+			restTemplate.getForObject(location, Beneficiary.class);
 
 		});
 		assertEquals(HttpStatus.NOT_FOUND, httpClientErrorException.getStatusCode());
