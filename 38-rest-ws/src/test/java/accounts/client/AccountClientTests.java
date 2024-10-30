@@ -69,7 +69,7 @@ public class AccountClientTests {
 		//	TODO-09: Retrieve the Account you just created from
 		//	         the location that was returned.
 		//	- Run this test, then. Make sure the test succeeds.
-		Account retrievedAccount = null; // Modify this line to use the restTemplate
+		Account retrievedAccount = restTemplate.getForObject(newAccountLocation, Account.class);
 		
 		assertEquals(account.getNumber(), retrievedAccount.getNumber());
 		
