@@ -1,7 +1,6 @@
 package accounts.client;
 
 import common.money.Percentage;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
@@ -81,7 +80,6 @@ public class AccountClientTests {
 	}
 	
 	@Test
-	@Disabled
 	public void addAndDeleteBeneficiary() {
 		// perform both add and delete to avoid issues with side effects
 		
@@ -90,7 +88,10 @@ public class AccountClientTests {
 		// - Create a new Beneficiary called "David" for the account with id 1
 		//	 (POST the String "David" to the "/accounts/{accountId}/beneficiaries" URL).
 		// - Store the returned location URI in a variable.
-		
+		int accountId = 1;
+		String beneficiary = "David";
+		URI location = restTemplate.postForLocation(BASE_URL + "/accounts/{accountId}/beneficiaries", beneficiary, accountId);
+
 		// TODO-14: Retrieve the Beneficiary you just created from the location that was returned
 		Beneficiary newBeneficiary = null; // Modify this line to use the restTemplate
 		
