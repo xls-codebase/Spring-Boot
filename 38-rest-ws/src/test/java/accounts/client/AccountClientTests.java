@@ -71,12 +71,24 @@ public class AccountClientTests {
 		Account retrievedAccount = restTemplate.getForObject(newAccountLocation, Account.class);
 		
 		assertEquals(account.getNumber(), retrievedAccount.getNumber());
+
 		
 		Beneficiary accountBeneficiary = account.getBeneficiaries().iterator().next();
 		Beneficiary retrievedAccountBeneficiary = retrievedAccount.getBeneficiaries().iterator().next();
 		
 		assertEquals(accountBeneficiary.getName(), retrievedAccountBeneficiary.getName());
 		assertNotNull(retrievedAccount.getEntityId());
+	}
+
+	@Test
+	public void createSameAccountTwiceResultsIn409() {
+		Account account = new Account("123123123", "John Doe");
+		HttpClientErrorException httpClientErrorException = assertThrows(HttpClientErrorException.class, () -> {
+			restTemplate.postForObject(BASE_URL + "/accounts", account, Account.class);
+			restTemplate.postForObject(BASE_URL + "/accounts", account, Account.class);
+		});
+		assertEquals(HttpStatus.CONFLICT, httpClientErrorException.getStatusCode());
+
 	}
 	
 	@Test
