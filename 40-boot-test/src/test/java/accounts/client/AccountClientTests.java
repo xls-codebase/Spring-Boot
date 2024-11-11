@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.http.ResponseEntity;
 import rewards.internal.account.Account;
 import rewards.internal.account.Beneficiary;
 
@@ -14,7 +14,6 @@ import java.net.URI;
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 // TODO-00: In this lab, you are going to exercise the following:
 // - Using @SpringBootTest and webEnvironment for end-to-end testing
@@ -111,11 +110,8 @@ public class AccountClientTests {
 
 		restTemplate.delete(newBeneficiaryLocation);
 
-		HttpClientErrorException httpClientErrorException = assertThrows(HttpClientErrorException.class, () -> {
-			System.out.println("You SHOULD get the exception \"No such beneficiary with name 'David'\" in the server.");
-			restTemplate.getForObject(newBeneficiaryLocation, Beneficiary.class);
-		});
-		assertThat(httpClientErrorException.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+		ResponseEntity<Beneficiary> responseEntity = restTemplate.getForEntity(newBeneficiaryLocation, Beneficiary.class);
+		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
 	}
 
 	// TODO-05: Observe a log message in the console indicating
