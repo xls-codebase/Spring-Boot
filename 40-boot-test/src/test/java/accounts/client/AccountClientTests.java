@@ -2,6 +2,7 @@ package accounts.client;
 
 import common.money.Percentage;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -11,8 +12,8 @@ import rewards.internal.account.Beneficiary;
 import java.net.URI;
 import java.util.Random;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 // TODO-00: In this lab, you are going to exercise the following:
 // - Using @SpringBootTest and webEnvironment for end-to-end testing
@@ -27,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 // TODO-01: Make this class a Spring Boot test class
 // - Add @SpringBootTest annotation with WebEnvironment.RANDOM_PORT
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AccountClientTests {
 
 	// TODO-02: Autowire TestRestTemplate bean to a field
