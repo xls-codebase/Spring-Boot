@@ -2,7 +2,9 @@ package accounts.client;
 
 import common.money.Percentage;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -33,6 +35,8 @@ public class AccountClientTests {
 
 	// TODO-02: Autowire TestRestTemplate bean to a field
 	// - Name the field as restTemplate
+	@Autowired
+	private TestRestTemplate restTemplate;
 
 	// TODO-03: Update code below to use TestRestTemplate (as opposed to RestTemplate)
 	// - Remove RestTemplate from this code
