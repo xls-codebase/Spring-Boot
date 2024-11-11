@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
 import rewards.internal.account.Account;
 import rewards.internal.account.Beneficiary;
 
@@ -50,14 +49,12 @@ public class AccountClientTests {
 	 * server URL ending with the servlet mapping on which the application can be
 	 * reached.
 	 */
-	private static final String BASE_URL = "http://localhost:8080";
 
-	private RestTemplate restTemplate = new RestTemplate();
 	private Random random = new Random();
 
 	@Test
 	public void listAccounts() {
-		String url = BASE_URL + "/accounts";
+		String url = "/accounts";
 		// we have to use Account[] instead of List<Account>, or Jackson won't know what
 		// type to unmarshal to
 		Account[] accounts = restTemplate.getForObject(url, Account[].class);
@@ -69,7 +66,7 @@ public class AccountClientTests {
 
 	@Test
 	public void getAccount() {
-		String url = BASE_URL + "/accounts/{accountId}";
+		String url = "/accounts/{accountId}";
 		Account account = restTemplate.getForObject(url, Account.class, 0);
 		assertThat(account.getName()).isEqualTo("Keith and Keri Donald");
 		assertThat(account.getBeneficiaries().size()).isEqualTo(2);
@@ -78,7 +75,7 @@ public class AccountClientTests {
 
 	@Test
 	public void createAccount() {
-		String url = BASE_URL + "/accounts";
+		String url = "/accounts";
 		// use a random account number to avoid conflict
 		String number = String.format("12345%4d", random.nextInt(10000));
 		Account account = new Account(number, "John Doe");
@@ -107,7 +104,7 @@ public class AccountClientTests {
 	@Test
 	public void addAndDeleteBeneficiary() {
 		// perform both add and delete to avoid issues with side effects
-		String addUrl = BASE_URL + "/accounts/{accountId}/beneficiaries";
+		String addUrl = "/accounts/{accountId}/beneficiaries";
 		URI newBeneficiaryLocation = restTemplate.postForLocation(addUrl, "David", 1);
 		Beneficiary newBeneficiary = restTemplate.getForObject(newBeneficiaryLocation, Beneficiary.class);
 		assertThat(newBeneficiary.getName()).isEqualTo("David");
