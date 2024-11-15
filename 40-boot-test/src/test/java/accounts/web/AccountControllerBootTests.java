@@ -14,6 +14,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 // TODO-07: Replace @ExtendWith(SpringExtension.class) with the following annotation
@@ -75,11 +76,11 @@ public class AccountControllerBootTests {
 	@Test
 	public void createAccount() throws Exception {
 
-		//Account testAccount = new Account("1234512345", "Mary Jones");
-		//testAccount.setEntityId(21L);
+		Account testAccount = new Account("1234512345", "Mary Jones");
+		testAccount.setEntityId(21L);
 
-		//given(accountManager.save(any(Account.class)))
-		//		.willReturn(testAccount);
+		given(accountManager.save(any(Account.class)))
+				.willReturn(testAccount);
 
 		// (Write code here)
 		// Use mockMvc to perform HTTP Post operation to "/accounts"
@@ -90,7 +91,13 @@ public class AccountControllerBootTests {
 		// - Verify that the response status is 201
 		// - Verify that the response "Location" header contains "http://localhost/accounts/21"
 
-		//verify(accountManager).save(any(Account.class));
+		mockMvc.perform(post("/accounts")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(testAccount)))
+				.andExpect(status().isCreated())
+				.andExpect(header().string("Location", "http://localhost/accounts/21"));
+
+		verify(accountManager).save(any(Account.class));
 
 	}
 
