@@ -5,14 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-// TODO-06: Get yourself familiarized with various testing utility classes
-// - Uncomment the import statements below
-//import static org.mockito.ArgumentMatchers.any;
-//import static org.mockito.BDDMockito.*;
-//import static org.mockito.Mockito.verify;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 // TODO-07: Replace @ExtendWith(SpringExtension.class) with the following annotation
 // - @WebMvcTest(AccountController.class) // includes @ExtendWith(SpringExtension.class)
 @ExtendWith(SpringExtension.class)
