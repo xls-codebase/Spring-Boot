@@ -1,9 +1,11 @@
 package accounts.web;
 
+import accounts.AccountManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 // TODO-07: Replace @ExtendWith(SpringExtension.class) with the following annotation
@@ -16,6 +18,8 @@ public class AccountControllerBootTests {
 	private MockMvc mockMvc;
 
 	// TODO-09: Create AccountManager mock bean using @MockBean annotation
+	@MockBean
+	private AccountManager accountManager;
 
 	// TODO-10: Write positive test for GET request for an account
 	// - Uncomment the code and run the test and verify it succeeds
