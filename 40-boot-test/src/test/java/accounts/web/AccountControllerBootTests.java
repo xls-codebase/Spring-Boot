@@ -2,12 +2,11 @@ package accounts.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
 // TODO-07: Replace @ExtendWith(SpringExtension.class) with the following annotation
 // - @WebMvcTest(AccountController.class) // includes @ExtendWith(SpringExtension.class)
-@ExtendWith(SpringExtension.class)
+@WebMvcTest(AccountController.class)
 public class AccountControllerBootTests {
 
 	// TODO-08: Autowire MockMvc bean
