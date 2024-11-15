@@ -6,7 +6,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import rewards.internal.account.Account;
+
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 // TODO-07: Replace @ExtendWith(SpringExtension.class) with the following annotation
 // - @WebMvcTest(AccountController.class) // includes @ExtendWith(SpringExtension.class)
@@ -26,16 +33,16 @@ public class AccountControllerBootTests {
 	@Test
 	public void accountDetails() throws Exception {
 
-		//given(accountManager.getAccount(0L))
-		//		.willReturn(new Account("1234567890", "John Doe"));
+		given(accountManager.getAccount(0L))
+				.willReturn(new Account("1234567890", "John Doe"));
 
-		//mockMvc.perform(get("/accounts/0"))
-		//	   .andExpect(status().isOk())
-		//	   .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-		//	   .andExpect(jsonPath("name").value("John Doe"))
-		//	   .andExpect(jsonPath("number").value("1234567890"));
+		mockMvc.perform(get("/accounts/0"))
+			   .andExpect(status().isOk())
+			   .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+			   .andExpect(jsonPath("name").value("John Doe"))
+			   .andExpect(jsonPath("number").value("1234567890"));
 
-		//verify(accountManager).getAccount(0L);
+		verify(accountManager).getAccount(0L);
 
 	}
 
