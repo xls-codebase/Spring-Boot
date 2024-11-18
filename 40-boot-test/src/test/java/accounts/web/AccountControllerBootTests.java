@@ -3,6 +3,7 @@ package accounts.web;
 import accounts.AccountManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
+import common.money.Percentage;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -10,17 +11,19 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.web.util.UriUtils;
 import rewards.internal.account.Account;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 // TODO-07: Replace @ExtendWith(SpringExtension.class) with the following annotation
@@ -163,6 +166,99 @@ public class AccountControllerBootTests {
 		verify(accountManager).getAllAccounts();
 	}
 
+//	Test GET/POST/DELETE for Beneficiary
+//
+//	1. Write test for getting a valid beneficiary for an account. The testing should verify the following:
+//	- The returned Http status is 200
+//	- The returned content type is JSON (MediaType.APPLICATION_JSON)
+//	- The returned data contains correct name and allocationPercentage of a beneficiary
+
+	@Test
+	public void getBeneficiary() throws Exception {
+		Account testAccount = new Account("1234512345", "Mary Jones");
+		Long testAccountId = 21L;
+		String testName = "Test Tester";
+		double testAmount = 0.1;
+		Percentage testPercentage = new Percentage(testAmount);
+		testAccount.addBeneficiary(testName, testPercentage);
+
+		given(accountManager.getAccount(anyLong()))
+				.willReturn(testAccount);
+
+		mockMvc.perform(get("/accounts/{accountId}/beneficiaries/{beneficiaryName}", testAccountId, testName))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("name").value("Test Tester"))
+				.andExpect(jsonPath("allocationPercentage").value(testAmount));
+
+		verify(accountManager).getAccount(anyLong());
+	}
+
+//	2. Write test for getting an non-existent beneficiary for an account. The testing should verify the following:
+//	- The returned Http status is 404
+	@Test
+	public void getBeneficiaryNotFound() throws Exception {
+		Account testAccount = new Account("1234512345", "Mary Jones");
+		String testName = "Test Tester";
+
+		given(accountManager.getAccount(anyLong()))
+				.willReturn(testAccount);
+
+		mockMvc.perform(get("/accounts/{accountId}/beneficiaries/{beneficiaryName}", 0L, testName))
+				.andExpect(status().isNotFound());
+
+		verify(accountManager).getAccount(any(Long.class));
+
+	}
+//	3. Write test for adding a new beneficiary to an account. the testing should verify the following:
+//	- the returned http status is 201
+//	- the location
+//	- header should contain the uri of the newly added beneficiary
+	@Test
+	public void addBeneficiary() throws Exception {
+		Long testAccountId = 0L;
+		String testName = "Test Tester";
+
+		mockMvc.perform(post("/accounts/{accountId}/beneficiaries", testAccountId).content(testName))
+				.andExpect(status().isCreated())
+				.andExpect(header().string("Location", "http://localhost/accounts/" +
+				testAccountId + "/beneficiaries/" + UriUtils.encodeQueryParam(testName, StandardCharsets.UTF_8)));
+	}
+//	4. Write test for removing a beneficiary from an account. The testing should verify the following:
+//	- The returned Http status is 204
+	@Test
+	public void deleteBeneficiary() throws Exception {
+		Account testAccount = new Account("1234512345", "Mary Jones");
+		Long testAccountId = 21L;
+		String testName = "Test Tester";
+		double testAmount = 0.1;
+		testAccount.addBeneficiary(testName, new Percentage(testAmount));
+
+		given(accountManager.getAccount(anyLong()))
+				.willReturn(testAccount);
+
+		mockMvc.perform(delete("/accounts/{accountId}/beneficiaries/{beneficiaryName}", testAccountId, testName))
+				.andExpect(status().isNoContent());
+
+		verify(accountManager).getAccount(anyLong());
+	}
+
+//	- Write test for removing a non-existent beneficiary from an account. The testing should verify the following:
+//	- The returned Http Status is 404
+	@Test
+	public void deleteNonExistentBeneficiary() throws Exception {
+		Account testAccount = new Account("1234512345", "Mary Jones");
+		Long testAccountId = 21L;
+		String testName = "Test Tester";
+
+		given(accountManager.getAccount(anyLong()))
+				.willReturn(testAccount);
+
+		mockMvc.perform(delete("/accounts/{accountId}/beneficiaries/{beneficiaryName}", testAccountId, testName))
+				.andExpect(status().isNotFound());
+
+		verify(accountManager).getAccount(anyLong());
+	}
 
     // Utility class for converting an object into JSON string
 	protected static String asJsonString(final Object obj) {
