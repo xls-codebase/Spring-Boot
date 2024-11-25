@@ -181,10 +181,14 @@ public class AccountControllerTests {
     //    this testing because security failure will prevent
     //    calling a method of a dependency.)
     @Test
+    @WithMockUser(roles = {"USER"})
     public void createAccount_with_USER_role_should_return_403() throws Exception {
+        Account testAccount = new Account("1234512345", "Mary Jones");
+        testAccount.setEntityId(21L);
 
-
-
+        mockMvc.perform(post("/accounts").contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(testAccount)))
+                .andExpect(status().isForbidden());
     }
 
     @Test
