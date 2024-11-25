@@ -66,8 +66,10 @@ public class RestSecurityConfig {
 		// (Make sure to store the password in encoded form.)
     	// - pass all users in the InMemoryUserDetailsManager constructor
 		UserDetails user = User.withUsername("user").password(passwordEncoder.encode("user")).roles("USER").build();
+		UserDetails admin = User.withUsername("admin").password(passwordEncoder.encode("admin")).roles("USER", "ADMIN").build();
+		UserDetails superadmin = User.withUsername("superadmin").password(passwordEncoder.encode("superadmin")).roles("USER","ADMIN", "SUPERADMIN").build();
 
-		return new InMemoryUserDetailsManager(user /* Add new users comma-separated here */);
+		return new InMemoryUserDetailsManager(user, admin, superadmin);
 	}
     
     @Bean
