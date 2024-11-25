@@ -1,9 +1,8 @@
 package config;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.core.userdetails.User;
@@ -12,6 +11,8 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 // TODO-10: Enable method security
 // - Add @EnableMethodSecurity annotation to this class
@@ -33,7 +34,16 @@ public class RestSecurityConfig {
                 //   for all roles - "USER", "ADMIN", "SUPERADMIN"
         		// - Allow GET on the /authorities resource
                 //   for all roles - "USER", "ADMIN", "SUPERADMIN"
-
+						.requestMatchers(HttpMethod.GET, "/accounts/**")
+						.hasAnyRole("USER", "ADMIN", "SUPERADMIN")
+						.requestMatchers(HttpMethod.POST, "/accounts/**")
+						.hasAnyRole("ADMIN", "SUPERADMIN")
+						.requestMatchers(HttpMethod.PUT, "/accounts/**")
+						.hasAnyRole("ADMIN", "SUPERADMIN")
+						.requestMatchers(HttpMethod.DELETE, "/accounts/**")
+						.hasRole("SUPERADMIN")
+						.requestMatchers(HttpMethod.GET, "/authorities")
+						.hasAnyRole("USER", "ADMIN", "SUPERADMIN")
                 // Deny any request that doesn't match any authorization rule
                 .anyRequest().denyAll())
         .httpBasic(withDefaults())
