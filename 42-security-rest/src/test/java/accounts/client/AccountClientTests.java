@@ -100,7 +100,14 @@ public class AccountClientTests {
     // - Use the code above as a guidance
     @Test
     public void createAccount_using_user_should_return_403() throws Exception {
-
+        String url = "/accounts";
+        // use a unique number to avoid conflicts
+        String number = String.format("12345%4d", random.nextInt(10000));
+        Account account = new Account(number, "John Doe");
+        ResponseEntity<Void> responseEntity
+                = restTemplate.withBasicAuth("user", "user")
+                .postForEntity(url, account, Void.class);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
 
 
     }
