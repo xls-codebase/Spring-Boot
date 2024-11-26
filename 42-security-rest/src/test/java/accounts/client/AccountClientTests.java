@@ -2,7 +2,6 @@ package accounts.client;
 
 import accounts.RestWsApplication;
 import common.money.Percentage;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +15,7 @@ import rewards.internal.account.Beneficiary;
 import java.net.URI;
 import java.util.Random;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 // TODO-07a: Perform security testing against a running server
 // - Take some time to understand what each test is for
@@ -33,7 +32,6 @@ public class AccountClientTests {
     private Random random = new Random();
 
     @Test
-    @Disabled
     public void listAccounts_using_invalid_user_should_return_401() throws Exception {
         ResponseEntity<String> responseEntity
                 = restTemplate.withBasicAuth("invalid", "invalid")
@@ -42,7 +40,6 @@ public class AccountClientTests {
     }
 
     @Test
-    @Disabled
     public void listAccounts_using_valid_user_should_succeed() {
         String url = "/accounts";
         // we have to use Account[] instead of List<Account>, or Jackson won't know what type to unmarshal to
@@ -58,7 +55,6 @@ public class AccountClientTests {
     }
 
     @Test
-    @Disabled
     public void listAccounts_using_valid_admin_should_succeed() {
         String url = "/accounts";
         // we have to use Account[] instead of List<Account>, or Jackson won't know what type to unmarshal to
@@ -74,7 +70,6 @@ public class AccountClientTests {
     }
 
     @Test
-    @Disabled
     public void getAccount_using_valid_user_should_succeed() {
         String url = "/accounts/{accountId}";
         ResponseEntity<Account> responseEntity
@@ -88,7 +83,6 @@ public class AccountClientTests {
     }
 
     @Test
-    @Disabled
     public void createAccount_using_admin_should_return_201() {
         String url = "/accounts";
         // use a unique number to avoid conflicts
@@ -112,7 +106,6 @@ public class AccountClientTests {
     }
 
     @Test
-    @Disabled
     public void addAndDeleteBeneficiary_using_superadmin_should_succeed() {
         // perform both add and delete to avoid issues with side effects
         String addUrl = "/accounts/{accountId}/beneficiaries";
