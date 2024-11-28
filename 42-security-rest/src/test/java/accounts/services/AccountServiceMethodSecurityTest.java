@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -50,7 +51,10 @@ class AccountServiceMethodSecurityTest {
     //           "ROLE_USER".
     @Test
     public void getAuthoritiesForUser_should_return_authorities_for_superadmin() {
-
+        String[] authorities = restTemplate.withBasicAuth("superadmin", "superadmin")
+                .getForObject("/authorities?username=superadmin", String[].class);
+        assertThat(authorities.length).isEqualTo(3);
+        assertThat(authorities).containsAll(List.of("ROLE_USER", "ROLE_ADMIN", "ROLE_SUPERADMIN"));
 
 
     }
