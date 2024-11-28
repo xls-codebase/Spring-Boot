@@ -8,6 +8,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Arrays;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 // TODO-12a: Perform method security testing with a running server
@@ -36,8 +38,8 @@ class AccountServiceMethodSecurityTest {
         String[] authorities = restTemplate.withBasicAuth("admin", "admin")
                                            .getForObject("/authorities?username=admin", String[].class);
         assertThat(authorities.length).isEqualTo(2);
-        assertThat(authorities.toString().contains("ROLE_ADMIN"));
-        assertThat(authorities.toString().contains("ROLE_USER"));
+        assertThat(Arrays.toString(authorities)).contains("ROLE_ADMIN");
+        assertThat(Arrays.toString(authorities)).contains("ROLE_USER");
 
     }
 
