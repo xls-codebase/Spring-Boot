@@ -58,7 +58,7 @@ public class RestSecurityConfig {
 	// TODO-14b (Optional): Remove the InMemoryUserDetailsManager definition
 	// - Comment the @Bean annotation below
 	
-	@Bean
+//	@Bean
     public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
 
 		// TODO-05: Add three users with corresponding roles:
