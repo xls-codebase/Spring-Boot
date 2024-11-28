@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
 //Optional exercise - Do the remaining steps only if you have extra time
 //TODO-13 (Optional): Create custom UserDetailsService
@@ -23,6 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 // - Comment the @Component annotation added in a previous task
 
 @Primary
+@Component
 public class CustomUserDetailsService implements UserDetailsService {
 
 	private PasswordEncoder passwordEncoder;
