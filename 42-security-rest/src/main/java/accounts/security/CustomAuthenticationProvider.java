@@ -21,17 +21,15 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	@Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
-//	    String username = authentication.getName();
-//	    String password = authentication.getCredentials().toString();
-//
-//	    if (!checkCustomAuthenticationSystem(username, password)) {
-//	    	throw new BadCredentialsException("Bad credentials provided");
-//	    }
-//	      
-//	    return new UsernamePasswordAuthenticationToken(
-//	              username, password, AuthorityUtils.createAuthorityList("ROLE_ADMIN"));
+	    String username = authentication.getName();
+	    String password = authentication.getCredentials().toString();
 
-		return null; // remove this line
+	    if (!checkCustomAuthenticationSystem(username, password)) {
+	    	throw new BadCredentialsException("Bad credentials provided");
+	    }
+
+	    return new UsernamePasswordAuthenticationToken(
+	              username, password, AuthorityUtils.createAuthorityList("ROLE_ADMIN"));
 	}
 
 	@Override
