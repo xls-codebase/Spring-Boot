@@ -37,7 +37,7 @@ public class AccountControllerTests {
 		// TODO-10: Fix compiler error
 		// - This constructor needs to pass MeterRegistry object as well
 		// - Run the tests (except the @Disabled ones) in this test class, they should pass
-		controller = new AccountController(new StubAccountManager());
+		controller = new AccountController(new StubAccountManager(), registry);
 	}
 
 	@Test
