@@ -2,6 +2,8 @@ package accounts.web;
 
 import accounts.AccountManager;
 import common.money.Percentage;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,7 @@ public class AccountController {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	private AccountManager accountManager;
+	private Counter counter;
 
 	// TODO-08: Add a Micrometer Counter
 	// - Inject a MeterRegistry through constructor injection
@@ -41,8 +44,9 @@ public class AccountController {
 	// - Create a Counter from the MeterRegistry: name the counter "account.fetch"
 	//   with a tag of "type"/"fromCode" key/value pair
 	@Autowired
-	public AccountController(AccountManager accountManager) {
+	public AccountController(AccountManager accountManager, MeterRegistry registry) {
 		this.accountManager = accountManager;
+		this.counter = registry.counter("account.fetch", "type", "fromCode");
 	}
 
 	/**
