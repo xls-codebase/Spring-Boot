@@ -77,7 +77,7 @@ public class AccountController {
 	 */
 	@GetMapping(value = "/accounts/{id}")
 	public Account accountDetails(@PathVariable int id) {
-
+		counter.increment();
 		return retrieveAccount(id);
 	}
 
