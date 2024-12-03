@@ -78,6 +78,7 @@ public class AccountController {
      *  - Set extra tag with "source"/"accountDetails" key/value pair
 	 */
 	@GetMapping(value = "/accounts/{id}")
+	@Timed(value = "account.timer", extraTags = {"source", "accountDetails"})
 	public Account accountDetails(@PathVariable int id) {
 		counter.increment();
 		return retrieveAccount(id);
