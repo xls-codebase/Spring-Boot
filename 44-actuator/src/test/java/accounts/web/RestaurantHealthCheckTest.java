@@ -38,7 +38,7 @@ public class RestaurantHealthCheckTest {
 
 		// TODO-15a: Invoke the health() method on RestaurantHealthCheck object
 		// (You will write health() method in the next step)
-		Health result = null;
+		Health result = restaurantHealthCheck.health();
 
 		// Health check should return UP
 		verify(restaurantRepository).getRestaurantCount();
@@ -53,7 +53,7 @@ public class RestaurantHealthCheckTest {
 
 		// TODO-15b: Invoke the health() method on RestaurantHealthCheck object
 		// (You will write health() method in the next step)
-		Health result = null;
+		Health result = restaurantHealthCheck.health();
 
 		// Health check should return DOWN
 		verify(restaurantRepository).getRestaurantCount();
