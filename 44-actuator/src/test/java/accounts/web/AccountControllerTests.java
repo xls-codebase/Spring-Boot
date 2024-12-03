@@ -4,7 +4,6 @@ import accounts.internal.StubAccountManager;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -44,7 +43,6 @@ public class AccountControllerTests {
 	// TODO-19: Test the actuator endpoints
 	// - Remove @Disabled annotation below
 	// - Run this test - it should pass
-	@Disabled
 	public void testHandleDetailsRequest() {
 		Account account = controller.accountDetails(0);
 		assertNotNull(account);
