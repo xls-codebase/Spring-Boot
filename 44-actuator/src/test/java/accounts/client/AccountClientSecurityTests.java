@@ -1,6 +1,5 @@
 package accounts.client;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,7 +8,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 // TODO-24: Run the tests checking security configuration for the actuator endpoints
 // - Take some time to understand what each test is for
@@ -22,7 +21,6 @@ public class AccountClientSecurityTests {
     private TestRestTemplate restTemplate;
 
     @Test
-    @Disabled
     public void any_user_can_access_health_endpoint() {
         ResponseEntity<String> responseEntity
                 = restTemplate.getForEntity("/actuator/health", String.class);
@@ -30,7 +28,6 @@ public class AccountClientSecurityTests {
     }
 
     @Test
-    @Disabled
     public void any_user_can_access_info_endpoint() {
         ResponseEntity<String> responseEntity
                 = restTemplate.getForEntity("/actuator/info", String.class);
@@ -38,7 +35,6 @@ public class AccountClientSecurityTests {
     }
 
     @Test
-    @Disabled
     public void any_user_cannot_access_conditions_endpoint() {
         ResponseEntity<String> responseEntity
                 = restTemplate.withBasicAuth("anyuser", "anyuser")
@@ -47,7 +43,6 @@ public class AccountClientSecurityTests {
     }
 
     @Test
-    @Disabled
     public void user_in_ADMIN_role_can_access_conditions_endpoint() {
         ResponseEntity<String> responseEntity
                 = restTemplate.withBasicAuth("admin", "admin")
@@ -56,7 +51,6 @@ public class AccountClientSecurityTests {
     }
 
     @Test
-    @Disabled
     public void user_in_ACTUATOR_role_cannot_access_conditions_endpoint() {
         ResponseEntity<String> responseEntity
                 = restTemplate.withBasicAuth("actuator", "actuator")
