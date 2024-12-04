@@ -5,7 +5,10 @@ package accounts.web;
 //
 // TODO-22: Uncomment code below until there is no compile error
 
+import org.springframework.boot.actuate.autoconfigure.condition.ConditionsReportEndpoint;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
+import org.springframework.boot.actuate.health.HealthEndpoint;
+import org.springframework.boot.actuate.info.InfoEndpoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,8 +35,8 @@ public class ActuatorSecurityConfiguration {
 
         // @formatter:off
         http.authorizeHttpRequests((authz) -> authz
-//                .requestMatchers(/* Add code here */).permitAll()
-//                .requestMatchers(/* Add code here */).hasRole("ADMIN")
+                .requestMatchers(EndpointRequest.to(HealthEndpoint.class, InfoEndpoint.class)).permitAll()
+                .requestMatchers(EndpointRequest.to(ConditionsReportEndpoint.class)).hasRole("ADMIN")
                 .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ACTUATOR")
                 .anyRequest().authenticated())
             .httpBasic(withDefaults())
